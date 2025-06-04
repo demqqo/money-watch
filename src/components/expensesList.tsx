@@ -15,14 +15,32 @@ const ExpensesList = () => {
     const expense = useAppSelector((state) => state.moneyChange.expense.Total);
     const income = useAppSelector((state)=> state.moneyChange.income.Total)
   return (
-    <div>
+    <div style={{ display: 'flex', gap: '1rem', width: '500px'}}>
+    <div className="list">
         <h2>Expenses List</h2>
-            {expenseCategories.map((item, index)=>(
-            <ExpenseComponent key={item.category}>{item.category}</ExpenseComponent>
-        ))}
+        <p>{expense}</p>
+        <button onClick={() => (dispatch(OpenModal()), dispatch(ChangeToExpense()))}>Add expense</button>
+
+        <Modal isOpen={open} onClose={() => dispatch(CloseModal())}> {expenseCategories.map((item)=>(
+            <ExpenseComponent key={item.category} >{item.category}</ExpenseComponent>
+        ))}</Modal>
+           
         
 
     </div>
+    <div className="list">
+    <h2>Income List</h2>
+    <p>{income}</p>
+    <button onClick={() => (dispatch(OpenModal()), dispatch(ChangeToIncome()))}>Add income</button>
+
+    <Modal isOpen={open} onClose={() => dispatch(CloseModal())}> {incomeCategories.map((item)=>(
+        <ExpenseComponent key={item.category}>{item.category}</ExpenseComponent>
+    ))}</Modal>
+       
+    
+
+</div>
+</div>
   )
 }
 
