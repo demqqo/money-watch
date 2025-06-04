@@ -1,6 +1,11 @@
-import React from 'react'
+import './style/expensesList.scss'
 import {expenseCategories}  from '../data/expenseCategories'
-import ExpenseComponent from './expenseComponent'
+import ExpenseComponent from './moneyChangeRecord'
+import Modal from './modal'
+import { useAppSelector, useAppDispatch} from '../state/hooks';
+import {OpenModal, CloseModal} from '../state/globalStates/modalComponentSlice'
+import { ChangeToExpense, ChangeToIncome } from '../state/globalStates/expenseOrIncomeSlice';
+import { incomeCategories } from '../data/incomeCategories';
 
 
 const ExpensesList = () => {
