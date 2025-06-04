@@ -10,6 +10,10 @@ import { incomeCategories } from '../data/incomeCategories';
 
 const ExpensesList = () => {
     
+    const open = useAppSelector((state) => state.globalState.isOpen)
+    const dispatch = useAppDispatch();
+    const expense = useAppSelector((state) => state.moneyChange.expense.Total);
+    const income = useAppSelector((state)=> state.moneyChange.income.Total)
   return (
     <div>
         <h2>Expenses List</h2>
