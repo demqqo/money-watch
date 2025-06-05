@@ -19,6 +19,10 @@ const ExpensesList = () => {
     const dispatch = useAppDispatch();
     const expense = useAppSelector((state) => state.moneyChange.expense.Total);
     const income = useAppSelector((state)=> state.moneyChange.income.Total)
+    const incomes = useAppSelector((state)=> state.moneyChange.income)
+    const expenses = useAppSelector((state)=> state.moneyChange.expense)
+    const typeOfMoney = useAppSelector((state) => state.isIncomeOrExpenseSlice.type)
+    
     const expenseData: ArrayEntry[] = Object.entries(expenses)
     .filter(([key]) => key !== 'Total')
     .map(([category, value]) => ({
@@ -64,11 +68,18 @@ const ExpensesList = () => {
     <div className="list">
     <h2>Income List</h2>
     <p>{income}</p>
+    {incomeData != undefined ? (
+  incomeData.map((item) => (
+    <p key={item.name}>
+      {item.name}: {item.value}
+    </p>
+  ))
+) : (
+  null
+)}
     <button onClick={() => (dispatch(OpenModal()), dispatch(ChangeToIncome()))}>Add income</button>
 
-    <Modal isOpen={open} onClose={() => dispatch(CloseModal())}> {incomeCategories.map((item)=>(
-        <ExpenseComponent key={item.category}>{item.category}</ExpenseComponent>
-    ))}</Modal>
+    
        
     
 
