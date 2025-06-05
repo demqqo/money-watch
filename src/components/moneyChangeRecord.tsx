@@ -2,25 +2,24 @@ import React, {useState, useEffect} from 'react'
 import Modal from './modal'
 import { useAppDispatch, useAppSelector } from '../state/hooks';
 import {income, expense} from '../state/moneyChange/moneyChangeSlice'
-import {OpenModal, CloseModal} from '../state/globalStates/modalComponentSlice'
-
+import {CloseModal} from '../state/globalStates/modalComponentSlice'
+import type {IncomeCategories, ExpenseCategories} from '../state/moneyChange/moneyChangeSlice'
 type Props = {
-    children: React.ReactNode;
+    children: string;
     
   };
 
 const ExpenseComponent = ({children}: Props ) => {
-const expenseTotal = useAppSelector((state) => state.moneyChange.expense.Total)
+
 function handleSubmit() {
   if (typeOfMoney === 'income') {
-    dispatch(income(value));
+    dispatch(income({amount:value, category: children as keyof IncomeCategories }));
   } else {
-    dispatch(expense(value));
+    dispatch(expense({amount:value, category:children as keyof ExpenseCategories}));
   };
 setValue(0);
 setOpen(false);
 dispatch(CloseModal());
-  
 }
 
 
@@ -38,13 +37,12 @@ dispatch(CloseModal());
 
       
       //redux logic
-      const expensesTotal = useAppSelector(state => state.moneyChange.expense.Total)
+      //const expensesTotal = useAppSelector(state => state.moneyChange.expense.Total)
       const dispatch = useAppDispatch();
       const typeOfMoney = useAppSelector((state) => state.isIncomeOrExpenseSlice.type)
       
-      useEffect(()=>{
-        
-      }, [debouncedValue])
+
+      
   return (
     <div>
         <button onClick={() => setOpen(true)}>{children}</button>

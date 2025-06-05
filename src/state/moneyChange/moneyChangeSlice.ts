@@ -1,6 +1,6 @@
-import { createSlice  } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction  } from "@reduxjs/toolkit";
 
-type IncomeCategories = {
+export type IncomeCategories = {
     Total: number;
     Salary: number;
     Freelance: number;
@@ -18,8 +18,9 @@ type IncomeCategories = {
     SellingAssets: number;
     SideHustle: number;
   };
+
   
-  type ExpenseCategories = {
+  export type ExpenseCategories = {
     Total: number;
     Housing: number;
     Food: number;
@@ -37,6 +38,8 @@ type IncomeCategories = {
     income: IncomeCategories;
     expense: ExpenseCategories;
   };
+  //type IncomeCategory = keyof typeof initialState.income;
+  //type ExpenseCategory = keyof typeof initialState.expense;
   
 const initialState: MoneyChange= {
     income: {
@@ -74,15 +77,23 @@ const initialState: MoneyChange= {
 const moneyChangeSlice = createSlice({
     name: 'moneyChange',
     initialState,
-    reducers:{
-        income: (state, action)=>{
-            state.income.Total += action.payload
-        },
-        expense: (state, action)=>{
-            state.expense.Total += action.payload
-        }
-    }
-})
+    reducers: {
+      income: (state, action: PayloadAction<{ amount: number; category?: keyof typeof initialState.income }>) => {
+        const { amount, category } = action.payload;
+        state.income.Total += amount;
+        //@ts-ignore
+        state.income[category] += amount;
+
+      },
+      expense: (state, action: PayloadAction<{ amount: number; category?: keyof typeof initialState.expense }>) => {
+        const { amount, category } = action.payload;
+        state.expense.Total += amount;
+        //@ts-ignore
+        state.expense[category] += amount;
+        
+      }, // comma here, if there are more reducers below
+    } // no trailing comma here
+  });
 
 export const {income, expense} = moneyChangeSlice.actions
 export default moneyChangeSlice.reducer
