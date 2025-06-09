@@ -1,4 +1,9 @@
 import React, {useState, useEffect} from 'react'
+//react library
+import {useState, useEffect} from 'react'
+import axios from 'axios'
+
+//component
 import Modal from './modal'
 
 //redux
@@ -25,6 +30,16 @@ function handleSubmit() {
 setValue(0);
 setOpen(false);
 dispatch(CloseModal());
+
+//POST METHOD THROUGH AXIOS
+axios.post('http://localhost:3000/items', {
+  name: selectedCategory,
+  value: value
+}).then(response=>{
+  console.log(response.data)
+}) .catch(error => {
+  console.error('Error fetching items:', error);
+})
 }
 
 
