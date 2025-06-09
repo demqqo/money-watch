@@ -1,3 +1,5 @@
+import {useState, useEffect} from 'react'
+import axios from 'axios'
 import './style/expensesList.scss'
 import {expenseCategories}  from '../data/expenseCategories'
 import ExpenseComponent from './moneyChangeRecord'
@@ -22,6 +24,17 @@ const ExpensesList = () => {
     const incomes = useAppSelector((state)=> state.moneyChange.income)
     const expenses = useAppSelector((state)=> state.moneyChange.expense)
     const typeOfMoney = useAppSelector((state) => state.isIncomeOrExpenseSlice.type)
+
+    //backend logic
+    const [items, setItems] = useState([])
+    
+    useEffect(()=>{
+      axios.get('http://localhost:3000/items').then(response=>{
+        console.log(response.data, 'data will render as list of expenses/incomes')
+      }) .catch(error => {
+        console.error('Error fetching items:', error);
+      })
+    }, [])
     
     const expenseData: ArrayEntry[] = Object.entries(expenses)
     .filter(([key]) => key !== 'Total')
