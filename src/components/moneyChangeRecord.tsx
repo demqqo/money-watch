@@ -1,9 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import Modal from './modal'
+
+//redux
 import { useAppDispatch, useAppSelector } from '../state/hooks';
 import {income, expense} from '../state/moneyChange/moneyChangeSlice'
 import {CloseModal} from '../state/globalStates/modalComponentSlice'
 import type {IncomeCategories, ExpenseCategories} from '../state/moneyChange/moneyChangeSlice'
+import { changeCategory } from '../state/globalStates/whatCategorySlice';
+
+
 type Props = {
     children: string;
     
@@ -40,12 +45,13 @@ dispatch(CloseModal());
       //const expensesTotal = useAppSelector(state => state.moneyChange.expense.Total)
       const dispatch = useAppDispatch();
       const typeOfMoney = useAppSelector((state) => state.isIncomeOrExpenseSlice.type)
+      const selectedCategory = useAppSelector((state)=> state.whatCategory.value)
       
 
       
   return (
     <div>
-        <button onClick={() => setOpen(true)}>{children}</button>
+        <button key={children} onClick={() => (setOpen(true), dispatch(changeCategory(children)))}>{children}</button>
         <Modal isOpen={open} onClose={() => setOpen(false)}>
         <h2>Add Expense</h2>
         <input onChange={(e) => setValue(Number(e.target.value))} placeholder="enter amount"></input>
