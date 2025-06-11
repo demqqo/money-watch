@@ -9,64 +9,93 @@ import {OpenModal, CloseModal} from '../state/globalStates/modalComponentSlice'
 import { ChangeToExpense, ChangeToIncome } from '../state/globalStates/expenseOrIncomeSlice';
 import { incomeCategories } from '../data/incomeCategories';
 
-type ArrayEntry = {
-    name: string;
-    value: number;
-  };
-
   
 const ExpensesList = () => {
+    //const [open, setOpen] = useState(false);
     
     const open = useAppSelector((state) => state.globalState.isOpen)
     const dispatch = useAppDispatch();
     const expense = useAppSelector((state) => state.moneyChange.expense.Total);
     const income = useAppSelector((state)=> state.moneyChange.income.Total)
-    const incomes = useAppSelector((state)=> state.moneyChange.income)
-    const expenses = useAppSelector((state)=> state.moneyChange.expense)
     const typeOfMoney = useAppSelector((state) => state.isIncomeOrExpenseSlice.type)
 
     //backend logic
-    const [items, setItems] = useState([])
-    
+    const [incomesDb, setIncomes] = useState([])
+    const [expensesDb, setExpenses] = useState([])
+
+    function handleDelete(itemToDelete: number) {
+      axios.delete(`http://localhost:3000/expenses/${itemToDelete}`)
+      
+    }
+
+    function handleEdit() {
+      axios.delete
+    }
+
     useEffect(()=>{
-      axios.get('http://localhost:3000/items').then(response=>{
-        console.log(response.data, 'data will render as list of expenses/incomes')
+      axios.get(`http://localhost:3000/incomes`).then(response=>{
+       setIncomes(response.data)
       }) .catch(error => {
         console.error('Error fetching items:', error);
       })
-    }, [])
     
-    const expenseData: ArrayEntry[] = Object.entries(expenses)
-    .filter(([key]) => key !== 'Total')
-    .map(([category, value]) => ({
-      name: category,
-      value: value as number,
-    }))
-    .filter((item) => item.value > 0);
-
-    const incomeData: ArrayEntry[] = Object.entries(incomes)
-    .filter(([key]) => key !== 'Total')
-    .map(([category, value]) => ({
-        name: category,
-        value: value as number,
-    }))
-    .filter((item) => item.value > 0)
-
-
+      axios.get(`http://localhost:3000/expenses`).then(response=>{
+       setExpenses(response.data)
+      }) .catch(error => {
+        console.error('Error fetching items:', error);
+      })
+    }, [typeOfMoney])
+    
+    
   return (
     <div style={{ display: 'flex', gap: '1rem', width: '500px'}}>
     <div className="list">
-        <h2>Expenses List</h2>
-        <p>{expense}</p>
-        {expenseData != undefined && expenseData.length > 0 ? (
-  expenseData.map((item) => (
-    <p key={item.name}>
-      {item.name}: {item.value}
-    </p>
+    <button onClick={() => (dispatch(OpenModal()), dispatch(ChangeToExpense()))}>Add expense</button>
+        <div className="elementOfList">
+          <div className="flexBox">
+          
+          <div className="contentOfElement">
+            <div>
+            Total expense
+            </div>
+            <div>
+              {expense}
+              </div>
+              
+              </div>
+          
+            </div>
+          </div>
+        {expensesDb != undefined && expensesDb.length > 0 ? (
+  expensesDb.map((item:any) => (
+        
+
+     
+    <div key={item.id} className="elementOfList">
+          <div className="flexBox">
+          <div className='deleteEditButton'>
+          <div onClick={()=>handleDelete(item.id)}>❌</div>
+          <div onClick={()=>handleEdit()}>✏️</div>
+            </div>
+          <div className="contentOfElement">
+            <div>
+              
+            {item.name}
+            </div>
+            <div>
+              {item.value}
+              </div>
+              
+              </div>
+          
+            </div>
+          </div>
+    
+    
   ))
 ) : (null
 )}
-        <button onClick={() => (dispatch(OpenModal()), dispatch(ChangeToExpense()))}>Add expense</button>
+        
 
         <Modal isOpen={open} onClose={() => dispatch(CloseModal())}>
   {(typeOfMoney === 'income' ? incomeCategories : expenseCategories).map((item) => (
@@ -79,19 +108,19 @@ const ExpensesList = () => {
 
     </div>
     <div className="list">
-    <h2>Income List</h2>
-    <p>{income}</p>
-    {incomeData != undefined ? (
-  incomeData.map((item) => (
-    <p key={item.name}>
-      {item.name}: {item.value}
+    <button onClick={() => (dispatch(OpenModal()), dispatch(ChangeToIncome()))}>Add income</button>
+
+    <p>Total income: {income}</p>
+    {incomesDb != undefined ? (
+  incomesDb.map((item) => (
+    //@ts-ignore
+    <p key={item.name}> {item.name}: {item.value}
     </p>
   ))
 ) : (
   null
 )}
-    <button onClick={() => (dispatch(OpenModal()), dispatch(ChangeToIncome()))}>Add income</button>
-
+    
     
        
     
