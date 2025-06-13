@@ -26,5 +26,9 @@ db.prepare(`
 
     db.prepare(`DELETE FROM expenses WHERE id = ?`)
 
+    db.prepare(`UPDATE incomes SET value = ? WHERE name = ?`)
+
+    db.prepare(`UPDATE expenses SET value = ? WHERE name = ?`)
+
 
     module.exports =db
