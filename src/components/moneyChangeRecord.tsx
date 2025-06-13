@@ -63,7 +63,7 @@ axios.post(`http://localhost:3000/${typeOfMoney}s`, {
       
   return (
     <div>
-        <button key={children} onClick={() => (setOpen(true), dispatch(changeCategory(children)))}>{children}</button>
+        <button key={Date()} onClick={() => (setOpen(true), dispatch(changeCategory(children)))}>{children}</button>
         <Modal isOpen={open} onClose={() => setOpen(false)}>
         <h2>Add Expense</h2>
         <input onChange={(e) => setValue(Number(e.target.value))} placeholder="enter amount"></input>
