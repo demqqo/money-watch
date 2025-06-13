@@ -1,0 +1,28 @@
+.list{
+    width: 900px;
+}
+.deleteEditButton {
+    font-size: 12px;
+    flex-wrap:  wrap;
+    align-items: center;
+    cursor: pointer;
+    display: none;
+  }
+
+  .elementOfList{
+   margin-top: 10px;
+   height: 58px;
+   
+  }
+  .flexBox{
+    display:flex,
+    
+  }
+
+  .contentOfElement{
+    flex: 1 1 auto;
+  }
+
+.elementOfList:hover .deleteEditButton {
+    display: block; /* show on hover */
+  }
