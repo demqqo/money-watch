@@ -26,14 +26,17 @@ const ExpensesList = () => {
     function handleDelete(itemToDelete: number) {
       axios.delete(`http://localhost:3000/expenses/${itemToDelete}`)
       
+    
+    //DELETE method
+    function handleDelete(itemToDelete: number, categoryToDelete: string) {
+      axios.delete(`http://localhost:3000/${categoryToDelete}/${itemToDelete}`)
     }
 
-    function handleEdit() {
-      axios.delete
-    }
 
+    //GET method
     useEffect(()=>{
       axios.get(`http://localhost:3000/incomes`).then(response=>{
+      
        setIncomes(response.data)
       }) .catch(error => {
         console.error('Error fetching items:', error);
@@ -46,11 +49,22 @@ const ExpensesList = () => {
       })
     }, [typeOfMoney])
     
+    //modal
+  function editHandle(itemToEdit: number,value: 'expenses'|'incomes'){
+    setIdToChange(itemToEdit)
+    setCategoryToChange(value)
     
+    dispatch(EditValue())
+    ModalContentManager()
+  }
+  function ModalContentManager(){
+  dispatch(OpenModal())
+    }
   return (
     <div style={{ display: 'flex', gap: '1rem', width: '500px'}}>
     <div className="list">
     <button onClick={() => (dispatch(OpenModal()), dispatch(ChangeToExpense()))}>Add expense</button>
+    <button onClick={() => (dispatch(AddExpense()), ModalContentManager())}>Add expense</button>
         <div className="elementOfList">
           <div className="flexBox">
           
@@ -76,6 +90,8 @@ const ExpensesList = () => {
           <div className='deleteEditButton'>
           <div onClick={()=>handleDelete(item.id)}>❌</div>
           <div onClick={()=>handleEdit()}>✏️</div>
+          <div onClick={()=>handleDelete(item.id, 'expenses')}>❌</div>
+          <div onClick={()=>(editHandle(item.id, 'expenses'))}>✏️</div>
             </div>
           <div className="contentOfElement">
             <div>
@@ -90,6 +106,8 @@ const ExpensesList = () => {
           
             </div>
           </div>
+     
+    
     
     
   ))
@@ -102,6 +120,9 @@ const ExpensesList = () => {
     //@ts-ignore
     <ExpenseComponent key={item.category}>{item.category}</ExpenseComponent>
   ))}
+        {mode === 'add-income' && <AddForm type="income" />}
+        {mode === 'add-expense' && <AddForm type="expense" />}
+        {mode === 'edit-value' && <EditForm id={idToChange} categoryToChange={categoryToChange}/> }
 </Modal>
            
         
@@ -109,6 +130,7 @@ const ExpensesList = () => {
     </div>
     <div className="list">
     <button onClick={() => (dispatch(OpenModal()), dispatch(ChangeToIncome()))}>Add income</button>
+    <button onClick={() => (dispatch(AddIncome()), ModalContentManager())}>Add income</button>
 
     <p>Total income: {income}</p>
     {incomesDb != undefined ? (
@@ -116,6 +138,8 @@ const ExpensesList = () => {
     //@ts-ignore
     <p key={item.name}> {item.name}: {item.value}
     </p>
+          <div onClick={()=>handleDelete(item.id, 'incomes')}>❌</div>
+          <div onClick={()=>(editHandle(item.id, 'incomes'))}>✏️</div>
   ))
 ) : (
   null
