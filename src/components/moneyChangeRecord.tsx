@@ -27,10 +27,10 @@ function handleSubmit() {
   } else {
     dispatch(expense({amount:value, category:children as keyof ExpenseCategories}));
   };
+
 setValue(0);
 setOpen(false);
 dispatch(CloseModal());
-
 //POST METHOD THROUGH AXIOS
 axios.post('http://localhost:3000/items', {
   name: selectedCategory,
@@ -42,11 +42,9 @@ axios.post('http://localhost:3000/items', {
 })
 }
 
-
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(0)
     const [debouncedValue, setDebouncedValue] = useState(value);
-   
     //optimized value check
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -54,7 +52,6 @@ axios.post('http://localhost:3000/items', {
         }, 500);
         return () => clearTimeout(timer); // cleanup if value changes again
     }, [value]);
-
       
       //redux logic
       //const expensesTotal = useAppSelector(state => state.moneyChange.expense.Total)

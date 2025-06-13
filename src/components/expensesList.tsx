@@ -22,10 +22,8 @@ const ExpensesList = () => {
     //backend logic
     const [incomesDb, setIncomes] = useState([])
     const [expensesDb, setExpenses] = useState([])
-
     function handleDelete(itemToDelete: number) {
       axios.delete(`http://localhost:3000/expenses/${itemToDelete}`)
-      
     
     //DELETE method
     function handleDelete(itemToDelete: number, categoryToDelete: string) {
@@ -83,7 +81,6 @@ const ExpensesList = () => {
         {expensesDb != undefined && expensesDb.length > 0 ? (
   expensesDb.map((item:any) => (
         
-
      
     <div key={item.id} className="elementOfList">
           <div className="flexBox">
