@@ -32,7 +32,7 @@ setValue(0);
 setOpen(false);
 dispatch(CloseModal());
 //POST METHOD THROUGH AXIOS
-axios.post('http://localhost:3000/items', {
+axios.post(`http://localhost:3000/${typeOfMoney}s`, {
   name: selectedCategory,
   value: value
 }).then(response=>{
