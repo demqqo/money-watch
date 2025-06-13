@@ -1,4 +1,3 @@
-import React, {useState, useEffect} from 'react'
 //react library
 import {useState, useEffect} from 'react'
 import axios from 'axios'
@@ -28,6 +27,7 @@ function handleSubmit() {
     dispatch(expense({amount:value, category:children as keyof ExpenseCategories}));
   };
 
+console.log(children)
 setValue(0);
 setOpen(false);
 dispatch(CloseModal());
@@ -44,14 +44,6 @@ axios.post(`http://localhost:3000/${typeOfMoney}s`, {
 
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(0)
-    const [debouncedValue, setDebouncedValue] = useState(value);
-    //optimized value check
-    useEffect(() => {
-        const timer = setTimeout(() => {
-          setDebouncedValue(value);
-        }, 500);
-        return () => clearTimeout(timer); // cleanup if value changes again
-    }, [value]);
       
       //redux logic
       //const expensesTotal = useAppSelector(state => state.moneyChange.expense.Total)
