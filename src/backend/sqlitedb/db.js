@@ -13,13 +13,15 @@ db.prepare(`
     db.prepare(`CREATE TABLE IF NOT EXISTS expenses (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,
-        value REAL)`
+        value REAL,
+        createdAt REAL)`
     ).run()
 
     db.prepare(`CREATE TABLE IF NOT EXISTS incomes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,
-        value REAL)`
+        value REAL,
+        createdAt REAL)`
     ).run()
 
     db.prepare(`DELETE FROM incomes WHERE id = ?`)
