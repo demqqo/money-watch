@@ -21,6 +21,7 @@ const rootReducer = combineReducers({
   moneyChange: moneyChangeReducer,
   globalState: globalStateReducer,
   isIncomeOrExpenseSlice: isIncomeOrExpenseReducer,
+  refreshTrigerSlice: refreshTrigerReducer,
 });
 
 const persistConfig = {
