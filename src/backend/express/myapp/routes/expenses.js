@@ -4,10 +4,10 @@ const db = require('../../../sqlitedb/db');
 
 
 router.post('/', (req, res) => {
-    const {name, value} = req.body;
-    const stmt = db.prepare('INSERT INTO expenses (name, value) VALUES (?, ?)');
-    const info = stmt.run(name, value);
-    res.send({ id: info.lastInsertRowid, name, value })
+    const {name, value, createdAt} = req.body;
+    const stmt = db.prepare('INSERT INTO expenses (name, value, createdAt) VALUES (?, ?, ?)');
+    const info = stmt.run(name, value, createdAt);
+    res.send({ id: info.lastInsertRowid, name, value, createdAt})
 })
 
 router.get('/', (req, res) => {
