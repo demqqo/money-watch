@@ -5,7 +5,7 @@ interface incomeOrExpenseStatus{
     type: string
 }
 const initialState: incomeOrExpenseStatus = {
-    type: 'income',
+    type: 'income'
 }
 const isIncomeOrExpenseSlice = createSlice({
     name: 'isIncomeOrExpense',

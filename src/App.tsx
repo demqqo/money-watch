@@ -1,5 +1,5 @@
 import './App.css'
-import ExpensesList from './components/expensesList'
+import ExpensesList from './components/expenseAndIncomeList'
 import {useEffect, useState} from 'react'
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import type {User} from 'firebase/auth'
