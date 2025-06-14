@@ -21,6 +21,11 @@ type Props = {
 const ExpenseComponent = ({children}: Props ) => {
 
 function handleSubmit() {
+  if(!value){
+dispatch(CloseModal());
+    return
+
+  }
   if (typeOfMoney === 'income') {
     dispatch(income({amount:value, category: children as keyof IncomeCategories }));
   } else {
