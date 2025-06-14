@@ -38,11 +38,14 @@ setOpen(false);
 dispatch(Refresh())
 dispatch(CloseModal());
 //POST METHOD THROUGH AXIOS
+const createdAt = Date.now()
 axios.post(`http://localhost:3000/${typeOfMoney}s`, {
   name: selectedCategory,
-  value: value
+  value: value,
+  createdAt: createdAt
 }).then(response=>{
   console.log(response.data)
+  const readableDate = new Date(response.data.createdAt).toLocaleString();
 }) .catch(error => {
   console.error('Error fetching items:', error);
 })
