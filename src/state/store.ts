@@ -13,7 +13,8 @@ import {
 import moneyChangeReducer from './moneyChange/moneyChangeSlice';
 import globalStateReducer from './globalStates/modalComponentSlice';
 import isIncomeOrExpenseReducer from './globalStates/expenseOrIncomeSlice';
-import whatCategoryReducer from './globalStates/whatCategorySlice'
+import whatCategoryReducer from './globalStates/whatCategorySlice';
+import refreshTrigerReducer from './globalStates/helpers';
 
 const rootReducer = combineReducers({
   whatCategory: whatCategoryReducer,
