@@ -31,8 +31,6 @@ dispatch(CloseModal());
   } else {
     dispatch(expense({amount:value, category:children as keyof ExpenseCategories}));
   };
-
-console.log(children)
 setValue(0);
 setOpen(false);
 dispatch(Refresh())
@@ -53,21 +51,21 @@ axios.post(`http://localhost:3000/${typeOfMoney}s`, {
 
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(0)
-      
-      //redux logic
-      //const expensesTotal = useAppSelector(state => state.moneyChange.expense.Total)
-      const dispatch = useAppDispatch();
-      const typeOfMoney = useAppSelector((state) => state.isIncomeOrExpenseSlice.type)
-      const selectedCategory = useAppSelector((state)=> state.whatCategory.value)
-      
 
+    //redux logic
+          
+    const dispatch = useAppDispatch();
+    const typeOfMoney = useAppSelector((state) => state.isIncomeOrExpenseSlice.type)
+    const selectedCategory = useAppSelector((state)=> state.whatCategory.value)
+
+     
       
   return (
     <div>
-        <button key={Date()} onClick={() => (setOpen(true), dispatch(changeCategory(children)))}>{children}</button>
+        <button onClick={() => (setOpen(true), dispatch(changeCategory(children)))}>{children}</button>
         <Modal isOpen={open} onClose={() => setOpen(false)}>
         <h2>Add Expense</h2>
-        <input onChange={(e) => setValue(Number(e.target.value))} placeholder="enter amount"></input>
+        <input onChange={(e) => setValue(Number(e.target.value))} placeholder="enter amount" type="number"></input>
         <button 
         onClick={()=>handleSubmit()}>
             Confirm
