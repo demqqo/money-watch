@@ -5,6 +5,7 @@ import axios from 'axios'
 import { useAppSelector, useAppDispatch} from '../state/hooks';
 import {OpenModal, CloseModal, AddExpense, AddIncome} from '../state/globalStates/modalComponentSlice'
 import { ChangeToExpense, ChangeToIncome } from '../state/globalStates/expenseOrIncomeSlice';
+import { Refresh } from '../state/globalStates/helpers';
 const EditForm = (props:any) => {
     
     const dispatch = useAppDispatch();
@@ -14,7 +15,9 @@ const EditForm = (props:any) => {
             value: value,
           })
           console.log(props)
+        dispatch(Refresh())
         dispatch(CloseModal())
+        
        
     }
     
@@ -23,7 +26,7 @@ const EditForm = (props:any) => {
   return (
     <div>
         
-        <Modal isOpen={open} onClose={()=> dispatch(CloseModal())}>
+        <Modal isOpen={open} onClose={()=> (dispatch(Refresh()), dispatch(CloseModal()))}>
         <h2>Enter new amount</h2>
         <input onChange={(e) => setInput(Number(e.target.value))} placeholder="enter amount"></input>
         <button 

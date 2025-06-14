@@ -30,6 +30,7 @@ function handleSubmit() {
 console.log(children)
 setValue(0);
 setOpen(false);
+dispatch(Refresh())
 dispatch(CloseModal());
 //POST METHOD THROUGH AXIOS
 axios.post(`http://localhost:3000/${typeOfMoney}s`, {
