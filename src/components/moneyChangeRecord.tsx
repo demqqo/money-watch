@@ -44,6 +44,7 @@ axios.post(`http://localhost:3000/${typeOfMoney}s`, {
 }).then(response=>{
   console.log(response.data)
   const readableDate = new Date(response.data.createdAt).toLocaleString();
+console.log(readableDate);
 }) .catch(error => {
   console.error('Error fetching items:', error);
 })
