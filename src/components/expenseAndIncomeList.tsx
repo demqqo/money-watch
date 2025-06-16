@@ -6,9 +6,11 @@ import './style/expensesList.scss'
 import Modal from './modal'
 import AddForm from './AddForm'
 import EditForm from './EditForm'
+import FilterForm from './filterForm'
 
 //redux imports
 import { useAppSelector, useAppDispatch} from '../state/hooks';
+import {OpenModal, CloseModal, AddExpense, AddIncome, EditValue, ChangeToFilter} from '../state/globalStates/modalComponentSlice'
 import { Refresh } from '../state/globalStates/helpers'
 
 const ExpensesList = () => {
@@ -78,7 +80,9 @@ const ExpensesList = () => {
   }
 
   function filterHandler(){
-    console.log('filterLogic')
+    
+    dispatch(ChangeToFilter())
+    ModalContentManager()
   }
 
   return (
@@ -144,11 +148,11 @@ const ExpensesList = () => {
           
             </div>
           </div>
-     
     
-    
-    
-  ))
+
+
+  )
+)
 ) : (null
 )}</div>
         
@@ -163,6 +167,7 @@ const ExpensesList = () => {
           id={idToChange} 
           categoryToChange={categoryToChange}
           />}
+        {mode === 'filter-form' && <FilterForm type="expense"/>}
         </Modal>
            
         
