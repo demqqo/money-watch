@@ -31,6 +31,9 @@ const globalStateSlice = createSlice({
         },
         EditValue: (state)=>{
             state.mode = 'edit-value'
+        },
+        ChangeToFilter: (state)=>{
+            state.mode = 'filter-form'
         }
     }
 })
