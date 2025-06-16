@@ -22,6 +22,7 @@ const ExpensesList = () => {
     const mode = useAppSelector((state) => state.globalState.mode)
     const refreshTriger = useAppSelector((state) => state.refreshTrigerSlice.value)
 
+    const filterChoice = useAppSelector((state)=> state.filterSlice.choice)
     //backend logic
     const [incomesDb, setIncomes] = useState<[]>([])
     const [expensesDb, setExpenses] = useState<[]>([])
@@ -115,8 +116,13 @@ const ExpensesList = () => {
             </div>
           </div>
         {expensesDb != undefined && expensesDb.length > 0 ? (
-  expensesDb.map((item:any) => (
-        
+  expensesDb
+  .filter((item: any) => Date.now() - item.createdAt <= filterChoice)
+  .map((item:any) => (
+    
+    
+    
+    
    <div key={item.id} className="elementOfList">
           <div className="flexBox">
           <div className='deleteEditButton'>
