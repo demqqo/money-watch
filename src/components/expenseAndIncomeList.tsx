@@ -9,18 +9,13 @@ import EditForm from './EditForm'
 
 //redux imports
 import { useAppSelector, useAppDispatch} from '../state/hooks';
-import {OpenModal, CloseModal, AddExpense, AddIncome, EditValue} from '../state/globalStates/modalComponentSlice'
 import { Refresh } from '../state/globalStates/helpers'
-import Dropdown from './dropdaown'
-
 
 const ExpensesList = () => {
     
     //redux
     const dispatch = useAppDispatch();
     const open = useAppSelector((state) => state.globalState.isOpen)
-    const expense = useAppSelector((state) => state.moneyChange.expense.Total);
-    const income = useAppSelector((state)=> state.moneyChange.income.Total)
     const typeOfMoney = useAppSelector((state) => state.isIncomeOrExpenseSlice.type)
     const mode = useAppSelector((state) => state.globalState.mode)
     const refreshTriger = useAppSelector((state) => state.refreshTrigerSlice.value)

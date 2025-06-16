@@ -8,7 +8,7 @@ type Props = {
 
 const Modal = ({ children, isOpen, onClose }: Props) => {
   if (!isOpen) return null;
-  
+
   return (
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>

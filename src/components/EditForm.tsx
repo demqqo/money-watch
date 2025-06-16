@@ -1,10 +1,9 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import Modal from './modal'
 import axios from 'axios'
 
 import { useAppSelector, useAppDispatch} from '../state/hooks';
-import {OpenModal, CloseModal, AddExpense, AddIncome} from '../state/globalStates/modalComponentSlice'
-import { ChangeToExpense, ChangeToIncome } from '../state/globalStates/expenseOrIncomeSlice';
+import {CloseModal} from '../state/globalStates/modalComponentSlice'
 import { Refresh } from '../state/globalStates/helpers';
 const EditForm = (props:any) => {
     

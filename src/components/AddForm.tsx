@@ -1,10 +1,9 @@
-import React from 'react'
 import { incomeCategories } from '../data/incomeCategories';
 import {expenseCategories}  from '../data/expenseCategories';
 import ExpenseComponent from './moneyChangeRecord'
 
 import { ChangeToExpense, ChangeToIncome } from '../state/globalStates/expenseOrIncomeSlice';
-import { useAppSelector, useAppDispatch} from '../state/hooks';
+import { useAppDispatch} from '../state/hooks';
 
 const AddForm = (type: any) => {
 

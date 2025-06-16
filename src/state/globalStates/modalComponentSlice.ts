@@ -35,5 +35,5 @@ const globalStateSlice = createSlice({
     }
 })
 
-export const {OpenModal, CloseModal, AddExpense, AddIncome, EditValue} = globalStateSlice.actions
+export const {OpenModal, CloseModal, AddExpense, AddIncome, EditValue, ChangeToFilter} = globalStateSlice.actions
 export default globalStateSlice.reducer

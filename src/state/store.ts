@@ -15,6 +15,7 @@ import globalStateReducer from './globalStates/modalComponentSlice';
 import isIncomeOrExpenseReducer from './globalStates/expenseOrIncomeSlice';
 import whatCategoryReducer from './globalStates/whatCategorySlice';
 import refreshTrigerReducer from './globalStates/helpers';
+import filterReducer from './globalStates/filterSlice'
 
 const rootReducer = combineReducers({
   whatCategory: whatCategoryReducer,
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   globalState: globalStateReducer,
   isIncomeOrExpenseSlice: isIncomeOrExpenseReducer,
   refreshTrigerSlice: refreshTrigerReducer,
+  filterSlice: filterReducer,
 });
 
 const persistConfig = {
