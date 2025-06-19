@@ -6,7 +6,7 @@ import './style/expensesList.scss'
 import Modal from './modal'
 import AddForm from './AddForm'
 import EditForm from './EditForm'
-import FilterForm from './filterForm'
+import FilterForm from './FilterForm'
 
 //redux imports
 import { useAppSelector, useAppDispatch} from '../state/hooks';
@@ -21,11 +21,12 @@ const ExpensesList = () => {
     const typeOfMoney = useAppSelector((state) => state.isIncomeOrExpenseSlice.type)
     const mode = useAppSelector((state) => state.globalState.mode)
     const refreshTriger = useAppSelector((state) => state.refreshTrigerSlice.value)
-
     const filterChoice = useAppSelector((state)=> state.filterSlice.choice)
     //backend logic
     const [incomesDb, setIncomes] = useState<[]>([])
+
     const [expensesDb, setExpenses] = useState<[]>([])
+
     const [idToChange, setIdToChange] = useState<number>()
     const [categoryToChange, setCategoryToChange] = useState<any>(null)
     var [totalIncome, setTotalIncome] = useState<number>(0)
