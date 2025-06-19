@@ -41,8 +41,52 @@ const ExpensesList = () => {
       dispatch(Refresh())
     }
 
-
+    
     //GET method
+    //variables
+    const [hasMore, setHasMore] = useState(true)
+    const [offset, setOffset] = useState(0)
+
+    function offsetChange(){
+
+      const offsetOnEntry =  offset
+      fetchExpenses(offsetOnEntry)
+      setOffset(prev=>prev + 10)
+
+    }
+
+    function fetchExpenses(props:number){
+      
+      axios.get(`http://localhost:3000/expenses?limit=10&offset=${props}`).then(response=>{
+        
+        //@ts-ignore
+        setTempDBexpenses(prev=>[...prev, ...response.data])
+        const x = tempDBexpenses
+        refreshFetch(x)
+      })
+    }
+
+    
+
+    function refreshFetch(x?: any){
+      
+
+      if(!x){
+        axios.get(`http://localhost:3000/expenses?limit=${offset}&offset=0`).then(response=>{
+        setExpenses(response.data)
+        const total = response.data.reduce((acc:number, item: any) => acc + item.value, 0);
+        setTotalExpense(total)
+        })
+      }else{
+        setExpenses(x)
+        const total = x.reduce((acc:number, item: any) => acc + item.value, 0);
+        setTotalExpense(total)
+        
+      }
+      
+    }
+    
+      
     useEffect(()=>{
       axios.get(`http://localhost:3000/incomes`)
         .then(response=>{
@@ -52,17 +96,10 @@ const ExpensesList = () => {
       }) 
         .catch(error => {
         console.error('Error fetching items:', error);
-      })
+      });
+      console.log(offset)
+      refreshFetch()
       
-      axios.get(`http://localhost:3000/expenses`)
-      .then(response=>{
-       setExpenses(response.data)
-       const total = response.data.reduce((acc: number, item: any) => acc + item.value, 0);
-       setTotalExpense(total);
-      }) 
-      .catch(error =>{
-        console.error('Error fetching items:', error);
-      })
     }, [typeOfMoney, refreshTriger])
     
     //modal
