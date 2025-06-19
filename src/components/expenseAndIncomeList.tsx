@@ -34,7 +34,7 @@ const ExpensesList = () => {
     var [totalExpense, setTotalExpense] = useState<number>(0)
 
     //DELETE method
-    function handleDelete(
+      function handleDelete(
       itemToDelete: number, 
       categoryToDelete: string
     ){
@@ -111,6 +111,7 @@ const ExpensesList = () => {
     setIdToChange(itemToEdit)
     setCategoryToChange(value)
     dispatch(EditValue())
+    
     ModalContentManager()
   }
 
