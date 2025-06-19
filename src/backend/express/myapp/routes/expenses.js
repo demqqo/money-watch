@@ -11,7 +11,9 @@ router.post('/', (req, res) => {
 })
 
 router.get('/', (req, res) => {
-    const expenses = db.prepare('SELECT * FROM expenses').all();
+    const limit = parseInt(req.query.limit);
+    const offset = parseInt(req.query.offset)
+    const expenses = db.prepare('SELECT * FROM expenses LIMIT ? OFFSET ?').all(limit, offset);
     res.send(expenses);
   });
   
