@@ -25,6 +25,7 @@ const ExpensesList = () => {
     //backend logic
     const [incomesDb, setIncomes] = useState<[]>([])
 
+    const [tempDBexpenses, setTempDBexpenses] = useState<[]>([])
     const [expensesDb, setExpenses] = useState<[]>([])
 
     const [idToChange, setIdToChange] = useState<number>()
@@ -236,7 +237,9 @@ useEffect(() => {
           />}
         {mode === 'filter-form' && <FilterForm type="expense"/>}
         </Modal>
+         {hasMore? (  
           <div ref={loaderRef} style={{ height: '30px' }} />
+        ):(null)}
           
     </div>
     <div className="list">
