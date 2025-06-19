@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useRef, useCallback} from 'react'
 import axios from 'axios'
 import './style/expensesList.scss'
 
@@ -77,15 +77,38 @@ const ExpensesList = () => {
 
   function ModalContentManager(){
     dispatch(OpenModal())
-    
   }
 
   function filterHandler(){
-    
     dispatch(ChangeToFilter())
     ModalContentManager()
   }
+  
+  //observer logic 
+  const loaderRef = useRef<HTMLDivElement | null>(null);
 
+const observer = useRef<IntersectionObserver | null>(null);
+
+const handleObserver = useCallback((entries: IntersectionObserverEntry[]) => {
+  const target = entries[0];
+  if (target.isIntersecting && hasMore) {
+    offsetChange(); // your load more function
+  }
+}, [hasMore, offset]);
+
+useEffect(() => {
+  const option = {
+    root: null,
+    rootMargin: '20px',
+    threshold: 0.5
+  };
+
+  if (observer.current) observer.current.disconnect();
+
+  observer.current = new IntersectionObserver(handleObserver, option);
+
+  if (loaderRef.current) observer.current.observe(loaderRef.current);
+}, [handleObserver]);
   return (
     <div style={{ display: 'flex', gap: '1rem', width: '500px'}}>
     <div className="list">
@@ -175,9 +198,8 @@ const ExpensesList = () => {
           />}
         {mode === 'filter-form' && <FilterForm type="expense"/>}
         </Modal>
-           
-        
-
+          <div ref={loaderRef} style={{ height: '30px' }} />
+          
     </div>
     <div className="list">
     <button className="regular-button"
